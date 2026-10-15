@@ -37,8 +37,14 @@ locals {
   # URL below is composed from the same value so the two always agree. The
   # *.gondola.locally certificate covers this single-label host, so the browser
   # trusts it when TLS is on.
-  app_hostname   = "${local.container_group_name}-${var.location}.gondola.locally"
-  app_public_url = "${local.app_scheme}://${local.app_hostname}:${local.app_port}"
+  #
+  # On Azure, set var.app_public_url to
+  # https://<dns label>.<region>.azurecontainer.io:<port>.
+  app_hostname = "${local.container_group_name}-${var.location}.gondola.locally"
+  app_public_url = coalesce(
+    var.app_public_url,
+    "${local.app_scheme}://${local.app_hostname}:${local.app_port}",
+  )
 
   # Where the identity provider POSTs the signed assertion back to. Registered as
   # the application's reply URL, which is where an identity-provider-initiated

@@ -48,9 +48,8 @@ variable "container_image" {
     The application image the container group runs, pulled from Docker Hub - no
     registry credentials and no import step.
 
-    The default is the published v1.0.0, a multi-arch build carrying both
-    linux/amd64 (Azure Container Instances) and linux/arm64 (Apple Silicon), so it
-    runs on either. To run unpublished local source instead, build and point this
+    The default is a multi-arch build carrying both linux/amd64 (Azure Container
+    Instances) and linux/arm64 (Apple Silicon), so it runs on either. To run unpublished local source instead, build and point this
     at the tag: `docker build -t customer-notes-crm-saml:local .` in the
     application repository, then set container_image = "customer-notes-crm-saml:local".
   EOT
@@ -63,9 +62,9 @@ variable "app_public_url" {
     The public base URL the application is reached on. The SAML reply URL and the
     application's own entity metadata hang off this.
 
-    Leave it unset on Locally: the default is composed from the container name, the
-    container group name, the location and the port, as
-    https://<container>-<group>-<location>.gondola.locally:<port>. Gondola registers that
+    Leave it unset on Locally: the default is composed from the container group
+    name, the location and the port, as
+    https://<group>-<location>.gondola.locally:<port>. Gondola registers that
     name in Locally's DNS pointing at the loopback address, where it listens and routes to
     the container by hostname, so that name reaches it.
 

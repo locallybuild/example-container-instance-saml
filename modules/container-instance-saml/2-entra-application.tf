@@ -6,9 +6,9 @@ resource "azuread_application" "customer_notes" {
   owners          = [data.azuread_client_config.current.object_id]
 
   web {
-    # The assertion consumer service URL, over plain HTTP and composed rather than
-    # read from the container group's fqdn: an IdP-initiated sign-in reads the ACS
-    # from here (there is no AuthnRequest to carry it), and it must match the
+    # The assertion consumer service URL, composed rather than read from the
+    # container group's fqdn: an IdP-initiated sign-in reads the ACS from here
+    # (there is no AuthnRequest to carry it), and it must match the
     # SAML_SP_ROOT_URL the container is given.
     redirect_uris = [local.acs_url]
   }

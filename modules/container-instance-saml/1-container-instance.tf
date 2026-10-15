@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "example" {
 
 locals {
   container_group_name = "${var.name_prefix}-group"
-  app_port             = 8080
+  app_port             = var.app_port
 }
 
 resource "azurerm_container_group" "example" {
@@ -30,7 +30,7 @@ resource "azurerm_container_group" "example" {
     memory = 1.5
 
     ports {
-      port     = 8080
+      port     = local.app_port
       protocol = "TCP"
     }
 
